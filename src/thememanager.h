@@ -37,13 +37,20 @@ class ThemeManager : public QObject
     Q_OBJECT
     Q_PROPERTY(bool darkMode READ darkMode NOTIFY darkModeChanged)
     Q_PROPERTY(QColor accentColor READ accentColor NOTIFY accentColorChanged)
-    Q_PROPERTY(QColor blueColor READ blueColor CONSTANT)
-    Q_PROPERTY(QColor redColor READ redColor CONSTANT)
-    Q_PROPERTY(QColor greenColor READ greenColor CONSTANT)
-    Q_PROPERTY(QColor purpleColor READ purpleColor CONSTANT)
-    Q_PROPERTY(QColor pinkColor READ pinkColor CONSTANT)
-    Q_PROPERTY(QColor orangeColor READ orangeColor CONSTANT)
-    Q_PROPERTY(QColor greyColor READ greyColor CONSTANT)
+    Q_PROPERTY(QColor blueColor READ blueColor NOTIFY colorChanged)
+    Q_PROPERTY(QColor redColor READ redColor NOTIFY colorChanged)
+    Q_PROPERTY(QColor greenColor READ greenColor NOTIFY colorChanged)
+    Q_PROPERTY(QColor purpleColor READ purpleColor NOTIFY colorChanged)
+    Q_PROPERTY(QColor pinkColor READ pinkColor NOTIFY colorChanged)
+    Q_PROPERTY(QColor orangeColor READ orangeColor NOTIFY colorChanged)
+    Q_PROPERTY(QColor greyColor READ greyColor NOTIFY colorChanged)
+    Q_PROPERTY(QColor color0 READ blueColor NOTIFY colorChanged)
+    Q_PROPERTY(QColor color1 READ redColor NOTIFY colorChanged)
+    Q_PROPERTY(QColor color2 READ greenColor NOTIFY colorChanged)
+    Q_PROPERTY(QColor color3 READ purpleColor NOTIFY colorChanged)
+    Q_PROPERTY(QColor color4 READ pinkColor NOTIFY colorChanged)
+    Q_PROPERTY(QColor color5 READ orangeColor NOTIFY colorChanged)
+    Q_PROPERTY(QColor color6 READ greyColor NOTIFY colorChanged)
     Q_PROPERTY(qreal devicePixelRatio READ devicePixelRatio CONSTANT)
     Q_PROPERTY(qreal fontSize READ fontSize NOTIFY fontSizeChanged)
     Q_PROPERTY(QString fontFamily READ fontFamily NOTIFY fontFamilyChanged)
@@ -66,17 +73,26 @@ public:
     QColor pinkColor() { return m_pinkColor; }
     QColor orangeColor() { return m_orangeColor; }
     QColor greyColor() { return m_greyColor; }
+    QColor color0() { return m_blueColor; }
+    QColor color1() { return m_redColor; }
+    QColor color2() { return m_greenColor; }
+    QColor color3() { return m_purpleColor; }
+    QColor color4() { return m_pinkColor; }
+    QColor color5() { return m_orangeColor; }
+    QColor color6() { return m_greyColor; }
 
 signals:
     void darkModeChanged();
     void accentColorChanged();
     void fontSizeChanged();
     void fontFamilyChanged();
+    void colorChanged();
 
 private slots:
     void initData();
     void initDBusSignals();
     void onDBusDarkModeChanged(bool darkMode);
+    void onDBusColorChanged();
     void onDBusAccentColorChanged(int accentColorID);
     void onDBusFontSizeChanged();
     void onDBusFontFamilyChanged();
